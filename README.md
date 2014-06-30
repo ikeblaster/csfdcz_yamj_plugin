@@ -23,3 +23,25 @@ Dále je třeba vybrat v nastavení tento plugin pro získávání informací o 
 ```
 mjb.internet.plugin=info.thez.csfdplugin.CSFDplugin
 ```
+
+Dále je možno přidat následující možnosti (nejsou povinné). Zde je uvedena jejich výchozí hodnota.
+
+```
+# Uložit hodnocení z ČSFD
+csfd.rating=True 
+
+# Země: all = ukládat všechny země / first = jen první zemi 
+csfd.countries=all  
+
+# Stahovat obaly
+csfd.poster=False    
+
+# Přepsat herce z IMDb
+csfd.actors=False  
+
+# Přepsat režiséry
+csfd.directors=False 
+
+# Přepsat autory scénáře
+csfd.writers=False     
+```
