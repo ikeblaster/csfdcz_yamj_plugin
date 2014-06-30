@@ -21,6 +21,8 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -45,12 +47,12 @@ public class CSFDplugin extends ImdbPlugin {
     private String titleDivider = PropertiesUtil.getProperty("csfd.title.divider", " - ");
 
     // Get scraping options
-    private boolean poster = PropertiesUtil.getBooleanProperty("csfd.poster", Boolean.FALSE);
     private boolean rating = PropertiesUtil.getBooleanProperty("csfd.rating", Boolean.TRUE);
+    private boolean poster = PropertiesUtil.getBooleanProperty("csfd.poster", Boolean.FALSE);
     private boolean actors = PropertiesUtil.getBooleanProperty("csfd.actors", Boolean.FALSE);
     private boolean directors = PropertiesUtil.getBooleanProperty("csfd.directors", Boolean.FALSE);
     private boolean writers = PropertiesUtil.getBooleanProperty("csfd.writers", Boolean.FALSE);
-    private boolean countryAll = PropertiesUtil.getProperty("csfd.country", "first").equalsIgnoreCase("all");
+    private boolean countryAll = PropertiesUtil.getProperty("csfd.countries", "all").equalsIgnoreCase("all");
 
     public CSFDplugin() {
         super();
@@ -222,10 +224,11 @@ public class CSFDplugin extends ImdbPlugin {
             // endregion
 
 
-
             // region RATING
             if(this.rating && data.containsKey("rating")) {
-                movie.addRating(CSFD_PLUGIN_ID, Integer.valueOf(data.get("rating").toString()));
+                Map<String, Integer> ratings = new HashMap<String, Integer>();
+                ratings.put(CSFD_PLUGIN_ID, Integer.valueOf(data.get("rating").toString()));
+                movie.setRatings(ratings);
             }
             // endregion
 
@@ -250,7 +253,7 @@ public class CSFDplugin extends ImdbPlugin {
             // region POSTER URL
             if(this.poster && data.containsKey("poster_url")) {
                 String posterUrl = data.get("poster_url").toString();
-                posterUrl = posterUrl.replace("?h180", "?h360");
+                posterUrl = posterUrl.replace("?h180", "");
                 movie.setPosterURL(posterUrl);
             }
             // endregion
@@ -264,6 +267,8 @@ public class CSFDplugin extends ImdbPlugin {
             if(this.directors && authors.containsKey("directors")) {
                 JSONArray people = (JSONArray) authors.get("directors");
 
+                movie.clearDirectors();
+
                 for(Object man : people) {
                     JSONObject obj = (JSONObject) man;
                     movie.addDirector(obj.get("name").toString(), CSFD_PLUGIN_ID);
@@ -276,6 +281,8 @@ public class CSFDplugin extends ImdbPlugin {
             if(this.writers && authors.containsKey("script")) {
                 JSONArray people = (JSONArray) authors.get("script");
 
+                movie.clearWriters();
+
                 for(Object man : people) {
                     JSONObject obj = (JSONObject) man;
                     movie.addWriter(obj.get("name").toString(), CSFD_PLUGIN_ID);
@@ -287,6 +294,8 @@ public class CSFDplugin extends ImdbPlugin {
             // region ACTORS
             if(this.actors && authors.containsKey("actors")) {
                 JSONArray people = (JSONArray) authors.get("actors");
+
+                movie.clearCast();
 
                 for(Object man : people) {
                     JSONObject obj = (JSONObject) man;
