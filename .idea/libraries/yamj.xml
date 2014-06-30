@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="yamj">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/yamj-2.10-SNAPSHOT.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/lib/yamj.r3763.model-sources.zip!/yamj.r3763.model" />
+    </SOURCES>
+  </library>
+</component>
