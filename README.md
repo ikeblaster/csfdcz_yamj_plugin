@@ -1,13 +1,9 @@
-CSFD.cz YAMJ Plugin
+ČSFD.cz YAMJ Plugin
 ===================
 __Written by__: Ike Blaster
 
-Written for use by Yet Another Movie Jukebox [(YAMJ)](http://code.google.com/p/moviejukebox/), but anyone can use it however he wants :).
+Created for use by Yet Another Movie Jukebox ([YAMJ](http://code.google.com/p/moviejukebox/)), but anyone can use it however he wants.
 
-This API uses unofficial [CSFD.cz API](http://csfdapi.cz)
+[ČSFD](http://csfd.cz) is the largest czech and slovak movie database. This plugin uses unofficial [ČSFD API](http://csfdapi.cz) to retrieve data from the database.
 
-
-***
-### CSFD.cz
-CSFD.cz is czech movie database
-
+Project is maintained purely in IntelliJ IDEA IDE.
