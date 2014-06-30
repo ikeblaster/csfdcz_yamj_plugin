@@ -1,8 +1,14 @@
 <component name="ArtifactManager">
   <artifact type="jar" build-on-make="true" name="csfdplugin:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/csfdplugin_jar</output-path>
+    <properties id="ant-postprocessing">
+      <options enabled="true">
+        <file>file://$PROJECT_DIR$/build.xml</file>
+        <target>new-version</target>
+      </options>
+    </properties>
     <root id="archive" name="csfdplugin.jar">
-      <element id="module-output" name="csfdplugin" />
+      <element id="module-output" name="csfdcz_yamj_plugin" />
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/json-simple-1.1.1.jar" path-in-jar="/" />
     </root>
   </artifact>

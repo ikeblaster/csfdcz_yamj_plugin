@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<project name="csfdplugin">
+    <description>
+        CSFD.cz plugin versioning task. See: https://github.com/ikeblaster/csfdcz_yamj_plugin/
+    </description>
+
+
+    <property name="app.name" value="csfdplugin"/>
+    <property name="app.version" value="1"/>
+
+    <property name="jar.dir" value="./out/artifacts/${app.name}_jar/"/>
+
+
+    <target name="new-version">
+        <buildnumber/>
+        <echo file="${jar.dir}/${app.name}-version.txt">CSFD.cz YAMJ Plugin - version ${app.version}.${build.number}</echo>
+    </target>
+
+
+
+
+</project>

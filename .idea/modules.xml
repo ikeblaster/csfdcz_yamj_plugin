@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/csfdplugin.iml" filepath="$PROJECT_DIR$/csfdplugin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/csfdcz_yamj_plugin.iml" filepath="$PROJECT_DIR$/csfdcz_yamj_plugin.iml" />
     </modules>
   </component>
 </project>

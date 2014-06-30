@@ -35,15 +35,13 @@ import java.util.Map;
  */
 public class CSFDplugin extends ImdbPlugin {
 
+    public static final String CSFD_PLUGIN_ID = "csfd";
     private static final Logger LOG = Logger.getLogger(CSFDplugin.class);
     private static final String LOG_MESSAGE = "CSFDPlugin: ";
-
-    public static final String CSFD_PLUGIN_ID = "csfd";
     private static final String ENGLISH = "english";
-    private TheTvDBPlugin tvdb;
-
     // Shows what name is on the first position with respect to divider
     private String titleLeader = PropertiesUtil.getProperty("csfd.title.leader", ENGLISH);
+    private TheTvDBPlugin tvdb;
     private String titleDivider = PropertiesUtil.getProperty("csfd.title.divider", " - ");
 
     // Get scraping options
@@ -144,7 +142,7 @@ public class CSFDplugin extends ImdbPlugin {
 
             if(StringTools.isValidString(year)) {
                 String[] years = year.split("-");
-                url += "+" + years[0];
+                url += "+(" + years[0] + ")";
             }
 
             String json = this.webBrowser.request(url);
@@ -174,7 +172,6 @@ public class CSFDplugin extends ImdbPlugin {
         try {
             String json = this.webBrowser.request("http://csfdapi.cz/movie/" + csfdId);
             JSONObject data = (JSONObject) JSONValue.parse(json);
-
 
 
 
