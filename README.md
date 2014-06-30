@@ -30,18 +30,18 @@ Dále je možno přidat následující možnosti (nejsou povinné). Zde je uvede
 # Uložit hodnocení z ČSFD
 csfd.rating=True 
 
-# Země: all = ukládat všechny země / first = jen první zemi 
-csfd.countries=all  
-
-# Stahovat obaly
-csfd.poster=False    
-
 # Přepsat herce z IMDb
-csfd.actors=False  
+csfd.actors=True  
 
 # Přepsat režiséry
-csfd.directors=False 
+csfd.directors=True 
 
 # Přepsat autory scénáře
-csfd.writers=False     
+csfd.writers=True 
+
+# Stahovat obaly
+csfd.poster=False   
+
+# Země: all = ukládat všechny země / first = jen první zemi 
+csfd.countries=all    
 ```

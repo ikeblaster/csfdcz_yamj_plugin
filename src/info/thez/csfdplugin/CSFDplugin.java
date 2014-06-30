@@ -47,11 +47,11 @@ public class CSFDplugin extends ImdbPlugin {
     private String titleDivider = PropertiesUtil.getProperty("csfd.title.divider", " - ");
 
     // Get scraping options
-    private boolean rating = PropertiesUtil.getBooleanProperty("csfd.rating", Boolean.TRUE);
     private boolean poster = PropertiesUtil.getBooleanProperty("csfd.poster", Boolean.FALSE);
-    private boolean actors = PropertiesUtil.getBooleanProperty("csfd.actors", Boolean.FALSE);
-    private boolean directors = PropertiesUtil.getBooleanProperty("csfd.directors", Boolean.FALSE);
-    private boolean writers = PropertiesUtil.getBooleanProperty("csfd.writers", Boolean.FALSE);
+    private boolean rating = PropertiesUtil.getBooleanProperty("csfd.rating", Boolean.TRUE);
+    private boolean actors = PropertiesUtil.getBooleanProperty("csfd.actors", Boolean.TRUE);
+    private boolean directors = PropertiesUtil.getBooleanProperty("csfd.directors", Boolean.TRUE);
+    private boolean writers = PropertiesUtil.getBooleanProperty("csfd.writers", Boolean.TRUE);
     private boolean countryAll = PropertiesUtil.getProperty("csfd.countries", "all").equalsIgnoreCase("all");
 
     public CSFDplugin() {
