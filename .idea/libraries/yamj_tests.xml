@@ -1,0 +1,77 @@
+<component name="libraryTable">
+  <library name="yamj-tests">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/YAMJ_To_Mede8er_Peter_Butler_V2.0.5mod_Shizzl_yamj2.10-r3763/lib/activation-1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/YAMJ_To_Mede8er_Peter_Butler_V2.0.5mod_Shizzl_yamj2.10-r3763/lib/allocine-api-1.4-SNAPSHOT.jar!/" />
+      <root url="jar://$PROJECT_DIR$/YAMJ_To_Mede8er_Peter_Butler_V2.0.5mod_Shizzl_yamj2.10-r3763/lib/anidb-0.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/YAMJ_To_Mede8er_Peter_Butler_V2.0.5mod_Shizzl_yamj2.10-r3763/lib/api-common-1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/YAMJ_To_Mede8er_Peter_Butler_V2.0.5mod_Shizzl_yamj2.10-r3763/lib/commons-codec-1.8.jar!/" />
+      <root url="jar://$PROJECT_DIR$/YAMJ_To_Mede8er_Peter_Butler_V2.0.5mod_Shizzl_yamj2.10-r3763/lib/commons-configuration-1.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/YAMJ_To_Mede8er_Peter_Butler_V2.0.5mod_Shizzl_yamj2.10-r3763/lib/commons-dbcp-1.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/YAMJ_To_Mede8er_Peter_Butler_V2.0.5mod_Shizzl_yamj2.10-r3763/lib/commons-io-2.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/YAMJ_To_Mede8er_Peter_Butler_V2.0.5mod_Shizzl_yamj2.10-r3763/lib/commons-lang-2.6.jar!/" />
+      <root url="jar://$PROJECT_DIR$/YAMJ_To_Mede8er_Peter_Butler_V2.0.5mod_Shizzl_yamj2.10-r3763/lib/commons-lang3-3.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/YAMJ_To_Mede8er_Peter_Butler_V2.0.5mod_Shizzl_yamj2.10-r3763/lib/commons-logging-1.1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/YAMJ_To_Mede8er_Peter_Butler_V2.0.5mod_Shizzl_yamj2.10-r3763/lib/commons-pool-1.6.jar!/" />
+      <root url="jar://$PROJECT_DIR$/YAMJ_To_Mede8er_Peter_Butler_V2.0.5mod_Shizzl_yamj2.10-r3763/lib/csfdplugin.jar!/" />
+      <root url="jar://$PROJECT_DIR$/YAMJ_To_Mede8er_Peter_Butler_V2.0.5mod_Shizzl_yamj2.10-r3763/lib/fanarttvapi-1.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/YAMJ_To_Mede8er_Peter_Butler_V2.0.5mod_Shizzl_yamj2.10-r3763/lib/filters-2.0.235-1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/YAMJ_To_Mede8er_Peter_Butler_V2.0.5mod_Shizzl_yamj2.10-r3763/lib/gmbal-api-only-3.1.0-b001.jar!/" />
+      <root url="jar://$PROJECT_DIR$/YAMJ_To_Mede8er_Peter_Butler_V2.0.5mod_Shizzl_yamj2.10-r3763/lib/ha-api-3.1.8.jar!/" />
+      <root url="jar://$PROJECT_DIR$/YAMJ_To_Mede8er_Peter_Butler_V2.0.5mod_Shizzl_yamj2.10-r3763/lib/httpclient-4.2.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/YAMJ_To_Mede8er_Peter_Butler_V2.0.5mod_Shizzl_yamj2.10-r3763/lib/httpcore-4.2.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/YAMJ_To_Mede8er_Peter_Butler_V2.0.5mod_Shizzl_yamj2.10-r3763/lib/istack-commons-runtime-2.2.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/YAMJ_To_Mede8er_Peter_Butler_V2.0.5mod_Shizzl_yamj2.10-r3763/lib/jackson-annotations-2.2.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/YAMJ_To_Mede8er_Peter_Butler_V2.0.5mod_Shizzl_yamj2.10-r3763/lib/jackson-core-2.2.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/YAMJ_To_Mede8er_Peter_Butler_V2.0.5mod_Shizzl_yamj2.10-r3763/lib/jackson-databind-2.2.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/YAMJ_To_Mede8er_Peter_Butler_V2.0.5mod_Shizzl_yamj2.10-r3763/lib/javax.annotation-3.1.1-b06.jar!/" />
+      <root url="jar://$PROJECT_DIR$/YAMJ_To_Mede8er_Peter_Butler_V2.0.5mod_Shizzl_yamj2.10-r3763/lib/javolution-5.3.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/YAMJ_To_Mede8er_Peter_Butler_V2.0.5mod_Shizzl_yamj2.10-r3763/lib/jaxb-api-2.2.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/YAMJ_To_Mede8er_Peter_Butler_V2.0.5mod_Shizzl_yamj2.10-r3763/lib/jaxb-impl-2.2.4-1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/YAMJ_To_Mede8er_Peter_Butler_V2.0.5mod_Shizzl_yamj2.10-r3763/lib/jaxb-xew-plugin-1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/YAMJ_To_Mede8er_Peter_Butler_V2.0.5mod_Shizzl_yamj2.10-r3763/lib/jaxws-api-2.2.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/YAMJ_To_Mede8er_Peter_Butler_V2.0.5mod_Shizzl_yamj2.10-r3763/lib/jaxws-rt-2.2.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/YAMJ_To_Mede8er_Peter_Butler_V2.0.5mod_Shizzl_yamj2.10-r3763/lib/jaxws-tools-2.2.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/YAMJ_To_Mede8er_Peter_Butler_V2.0.5mod_Shizzl_yamj2.10-r3763/lib/jsr181-api-1.0-MR1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/YAMJ_To_Mede8er_Peter_Butler_V2.0.5mod_Shizzl_yamj2.10-r3763/lib/log4j-1.2.17.jar!/" />
+      <root url="jar://$PROJECT_DIR$/YAMJ_To_Mede8er_Peter_Butler_V2.0.5mod_Shizzl_yamj2.10-r3763/lib/management-api-3.0.0-b012.jar!/" />
+      <root url="jar://$PROJECT_DIR$/YAMJ_To_Mede8er_Peter_Butler_V2.0.5mod_Shizzl_yamj2.10-r3763/lib/mimepull-1.6.jar!/" />
+      <root url="jar://$PROJECT_DIR$/YAMJ_To_Mede8er_Peter_Butler_V2.0.5mod_Shizzl_yamj2.10-r3763/lib/mjbsqldb-1.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/YAMJ_To_Mede8er_Peter_Butler_V2.0.5mod_Shizzl_yamj2.10-r3763/lib/mucommander-0.8.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/YAMJ_To_Mede8er_Peter_Butler_V2.0.5mod_Shizzl_yamj2.10-r3763/lib/ormlite-core-4.46.jar!/" />
+      <root url="jar://$PROJECT_DIR$/YAMJ_To_Mede8er_Peter_Butler_V2.0.5mod_Shizzl_yamj2.10-r3763/lib/ormlite-jdbc-4.46.jar!/" />
+      <root url="jar://$PROJECT_DIR$/YAMJ_To_Mede8er_Peter_Butler_V2.0.5mod_Shizzl_yamj2.10-r3763/lib/pojava-2.8.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/YAMJ_To_Mede8er_Peter_Butler_V2.0.5mod_Shizzl_yamj2.10-r3763/lib/policy-2.2.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/YAMJ_To_Mede8er_Peter_Butler_V2.0.5mod_Shizzl_yamj2.10-r3763/lib/resolver-20050927.jar!/" />
+      <root url="jar://$PROJECT_DIR$/YAMJ_To_Mede8er_Peter_Butler_V2.0.5mod_Shizzl_yamj2.10-r3763/lib/rottentomatoesapi-1.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/YAMJ_To_Mede8er_Peter_Butler_V2.0.5mod_Shizzl_yamj2.10-r3763/lib/saaj-api-1.3.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/YAMJ_To_Mede8er_Peter_Butler_V2.0.5mod_Shizzl_yamj2.10-r3763/lib/saaj-impl-1.3.10.jar!/" />
+      <root url="jar://$PROJECT_DIR$/YAMJ_To_Mede8er_Peter_Butler_V2.0.5mod_Shizzl_yamj2.10-r3763/lib/sanselan-0.97-incubator.jar!/" />
+      <root url="jar://$PROJECT_DIR$/YAMJ_To_Mede8er_Peter_Butler_V2.0.5mod_Shizzl_yamj2.10-r3763/lib/saxonhe-9.3.0.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/YAMJ_To_Mede8er_Peter_Butler_V2.0.5mod_Shizzl_yamj2.10-r3763/lib/simmetrics-1.6.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/YAMJ_To_Mede8er_Peter_Butler_V2.0.5mod_Shizzl_yamj2.10-r3763/lib/slf4j-api-1.7.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/YAMJ_To_Mede8er_Peter_Butler_V2.0.5mod_Shizzl_yamj2.10-r3763/lib/slf4j-log4j12-1.7.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/YAMJ_To_Mede8er_Peter_Butler_V2.0.5mod_Shizzl_yamj2.10-r3763/lib/sqlite-jdbc-3.7.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/YAMJ_To_Mede8er_Peter_Butler_V2.0.5mod_Shizzl_yamj2.10-r3763/lib/stax-api-1.0-2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/YAMJ_To_Mede8er_Peter_Butler_V2.0.5mod_Shizzl_yamj2.10-r3763/lib/stax-ex-1.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/YAMJ_To_Mede8er_Peter_Butler_V2.0.5mod_Shizzl_yamj2.10-r3763/lib/stax2-api-3.1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/YAMJ_To_Mede8er_Peter_Butler_V2.0.5mod_Shizzl_yamj2.10-r3763/lib/streambuffer-1.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/YAMJ_To_Mede8er_Peter_Butler_V2.0.5mod_Shizzl_yamj2.10-r3763/lib/subbabaapi-1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/YAMJ_To_Mede8er_Peter_Butler_V2.0.5mod_Shizzl_yamj2.10-r3763/lib/themoviedbapi-3.8-SNAPSHOT.jar!/" />
+      <root url="jar://$PROJECT_DIR$/YAMJ_To_Mede8er_Peter_Butler_V2.0.5mod_Shizzl_yamj2.10-r3763/lib/thetvdbapi-1.7-SNAPSHOT.jar!/" />
+      <root url="jar://$PROJECT_DIR$/YAMJ_To_Mede8er_Peter_Butler_V2.0.5mod_Shizzl_yamj2.10-r3763/lib/traileraddictapi-1.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/YAMJ_To_Mede8er_Peter_Butler_V2.0.5mod_Shizzl_yamj2.10-r3763/lib/tvrageapi-1.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/YAMJ_To_Mede8er_Peter_Butler_V2.0.5mod_Shizzl_yamj2.10-r3763/lib/txw2-20090102.jar!/" />
+      <root url="jar://$PROJECT_DIR$/YAMJ_To_Mede8er_Peter_Butler_V2.0.5mod_Shizzl_yamj2.10-r3763/lib/woodstox-core-asl-4.1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/YAMJ_To_Mede8er_Peter_Butler_V2.0.5mod_Shizzl_yamj2.10-r3763/lib/ws-commons-util-1.0.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/YAMJ_To_Mede8er_Peter_Butler_V2.0.5mod_Shizzl_yamj2.10-r3763/lib/xml-apis-1.0.b2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/YAMJ_To_Mede8er_Peter_Butler_V2.0.5mod_Shizzl_yamj2.10-r3763/lib/xmlrpc-client-3.1.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/YAMJ_To_Mede8er_Peter_Butler_V2.0.5mod_Shizzl_yamj2.10-r3763/lib/xmlrpc-common-3.1.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/YAMJ_To_Mede8er_Peter_Butler_V2.0.5mod_Shizzl_yamj2.10-r3763/lib/yamj-2.10-SNAPSHOT.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/YAMJ_To_Mede8er_Peter_Butler_V2.0.5mod_Shizzl_yamj2.10-r3763/lib/sqlite-jdbc-3.7.2.jar!/" />
+    </SOURCES>
+  </library>
+</component>

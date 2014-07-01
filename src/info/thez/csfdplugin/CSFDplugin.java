@@ -8,14 +8,11 @@
 package info.thez.csfdplugin;
 
 import com.moviejukebox.model.Movie;
-import com.moviejukebox.model.Person;
-import com.moviejukebox.model.enumerations.OverrideFlag;
 import com.moviejukebox.plugin.ImdbPlugin;
 import com.moviejukebox.plugin.TheTvDBPlugin;
 import com.moviejukebox.tools.PropertiesUtil;
 import com.moviejukebox.tools.StringTools;
 import com.moviejukebox.tools.SystemTools;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -38,11 +35,7 @@ public class CSFDplugin extends ImdbPlugin {
     public static final String CSFD_PLUGIN_ID = "csfd";
     private static final Logger LOG = Logger.getLogger(CSFDplugin.class);
     private static final String LOG_MESSAGE = "CSFDPlugin: ";
-    private static final String ENGLISH = "english";
-    // Shows what name is on the first position with respect to divider
-    private String titleLeader = PropertiesUtil.getProperty("csfd.title.leader", ENGLISH);
     private TheTvDBPlugin tvdb;
-    private String titleDivider = PropertiesUtil.getProperty("csfd.title.divider", " - ");
 
     // Get scraping options
     private boolean poster = PropertiesUtil.getBooleanProperty("csfd.poster", Boolean.FALSE);
@@ -54,6 +47,7 @@ public class CSFDplugin extends ImdbPlugin {
 
     public CSFDplugin() {
         super();
+
         this.preferredCountry = PropertiesUtil.getProperty("imdb.preferredCountry", "Czech Republic");
         this.actorMax = PropertiesUtil.getReplacedIntProperty("movie.actor.maxCount", "plugin.people.maxCount.actor", 10);
         this.directorMax = PropertiesUtil.getReplacedIntProperty("movie.director.maxCount", "plugin.people.maxCount.director", 2);
@@ -81,32 +75,11 @@ public class CSFDplugin extends ImdbPlugin {
             String name = movie.getOriginalTitle();
             String year = movie.getYear();
 
-            final String previousTitle = movie.getTitle();
-            int dash = previousTitle.indexOf(this.titleDivider);
-            if(dash != -1) {
-                if(this.titleLeader.equals(ENGLISH)) {
-                    movie.setTitle(previousTitle.substring(0, dash), movie.getOverrideSource(OverrideFlag.TITLE));
-                } else {
-                    movie.setTitle(previousTitle.substring(dash), movie.getOverrideSource(OverrideFlag.TITLE));
-                }
-            }
             // Get base info from imdb or tvdb
             if(!movie.isTVShow()) {
                 super.scan(movie);
             } else {
                 this.tvdb.scan(movie);
-            }
-
-
-            // Let's replace dash (-) by space ( ) in Title.
-            //name.replace(titleDivider, " ");
-            dash = name.indexOf(this.titleDivider);
-            if(dash != -1) {
-                if(this.titleLeader.equals(ENGLISH)) {
-                    name = name.substring(0, dash);
-                } else {
-                    name = name.substring(dash);
-                }
             }
 
             // search movie ID on csfd with year
@@ -181,15 +154,6 @@ public class CSFDplugin extends ImdbPlugin {
             if(names.containsKey("cs")) {
                 movie.setTitle(names.get("cs").toString(), CSFD_PLUGIN_ID);
             }
-
-            /*
-            if(names.containsKey("en")) {
-                movie.setOriginalTitle(names.get("en").toString(), movie.getOverrideSource(OverrideFlag.ORIGINALTITLE));
-            }
-            if(names.containsKey("originální")) {
-                movie.setOriginalTitle(names.get("originální").toString(), movie.getOverrideSource(OverrideFlag.ORIGINALTITLE));
-            }
-            */
             // endregion
 
 
@@ -214,9 +178,19 @@ public class CSFDplugin extends ImdbPlugin {
             // region COUNTRIES
             if(data.containsKey("countries")) {
                 JSONArray countries = (JSONArray) data.get("countries");
-                String strCountry = this.countryAll ? StringUtils.join(countries, Movie.SPACE_SLASH_SPACE) : countries.get(0).toString(); // join all or get first country
+                StringBuilder sbCountry = new StringBuilder("");
 
-                movie.setCountry(strCountry, CSFD_PLUGIN_ID);
+                for(int i = 0; i < countries.size(); i++) {
+                    if(i > 0) {
+                        if(!this.countryAll) break;
+                        sbCountry.append(Movie.SPACE_SLASH_SPACE);
+                    }
+
+                    sbCountry.append(this.getCountryCode(countries.get(i).toString()));
+                }
+
+
+                movie.setCountry(sbCountry.toString(), CSFD_PLUGIN_ID);
             }
             // endregion
 
@@ -258,17 +232,20 @@ public class CSFDplugin extends ImdbPlugin {
 
 
             JSONObject authors = (JSONObject) data.get("authors");
-
+            int cnt;
 
             // region DIRECTOR
             if(this.directors && authors.containsKey("directors")) {
                 JSONArray people = (JSONArray) authors.get("directors");
 
                 movie.clearDirectors();
+                cnt = 0;
 
                 for(Object man : people) {
                     JSONObject obj = (JSONObject) man;
                     movie.addDirector(obj.get("name").toString(), CSFD_PLUGIN_ID);
+
+                    if(cnt++ > this.directorMax) break;
                 }
             }
             // endregion
@@ -279,10 +256,13 @@ public class CSFDplugin extends ImdbPlugin {
                 JSONArray people = (JSONArray) authors.get("script");
 
                 movie.clearWriters();
+                cnt = 0;
 
                 for(Object man : people) {
                     JSONObject obj = (JSONObject) man;
                     movie.addWriter(obj.get("name").toString(), CSFD_PLUGIN_ID);
+
+                    if(cnt++ > this.writerMax) break;
                 }
             }
             // endregion
@@ -293,10 +273,13 @@ public class CSFDplugin extends ImdbPlugin {
                 JSONArray people = (JSONArray) authors.get("actors");
 
                 movie.clearCast();
+                cnt = 0;
 
                 for(Object man : people) {
                     JSONObject obj = (JSONObject) man;
                     movie.addActor(obj.get("name").toString(), CSFD_PLUGIN_ID);
+
+                    if(cnt++ > this.actorMax) break;
                 }
             }
             // endregion
@@ -312,10 +295,160 @@ public class CSFDplugin extends ImdbPlugin {
     }
 
 
+    public static final Map<String, String> countryCodes = new HashMap<String, String>() {{
+        this.put("afgánistán", "AF");
+        this.put("albánie", "AL");
+        this.put("alžírsko", "DZ");
+        this.put("argentina", "AR");
+        this.put("arménie", "AM");
+        this.put("austrálie", "AU");
+        this.put("bahamy", "BS");
+        this.put("bangladéš", "BD");
+        this.put("barma", "MM");
+        this.put("belgie", "BE");
+        this.put("bhután", "BT");
+        this.put("bolívie", "BO");
+        this.put("bosna a hercegovina", "BA");
+        this.put("brazílie", "BR");
+        this.put("bulharsko", "BG");
+        this.put("burkina faso", "BF");
+        this.put("bělorusko", "BY");
+        this.put("chile", "CL");
+        this.put("chorvatsko", "HR");
+        this.put("cz název", "CZ");
+        this.put("dominik. republika", "DO");
+        this.put("dánsko", "DK");
+        this.put("egypt", "EG");
+        this.put("ekvádor", "EC");
+        this.put("en název", "US");
+        this.put("estonsko", "EE");
+        this.put("etiopie", "ET");
+        this.put("fed. rep. jugoslávie", "HR"); // historical
+        this.put("filipíny", "PH");
+        this.put("finsko", "FI");
+        this.put("francie", "FR");
+        this.put("gruzie", "GE");
+        this.put("guatemala", "GT");
+        this.put("honduras", "HN");
+        this.put("hong kong", "HK");
+        this.put("indie", "IN");
+        this.put("indonésie", "ID");
+        this.put("irsko", "IE");
+        this.put("irák", "IQ");
+        this.put("irán", "IR");
+        this.put("island", "IS");
+        this.put("itálie", "IT");
+        this.put("izrael", "IL");
+        this.put("jamajka", "JM");
+        this.put("japonsko", "JP");
+        this.put("jižní afrika", "ZA");
+        this.put("jižní korea", "KR");
+        this.put("jordánsko", "JO");
+        this.put("jugoslávie", "HR"); // historical
+        this.put("kambodža", "KH");
+        this.put("kamerun", "CM");
+        this.put("kanada", "CA");
+        this.put("katar", "QA");
+        this.put("kazachstán", "KZ");
+        this.put("keňa", "KE");
+        this.put("kolumbie", "CO");
+        this.put("kongo", "CG");
+        this.put("korea", "KR"); // ambiguous
+        this.put("kosovo", "XK"); // temporary
+        this.put("kostarika", "CR");
+        this.put("kuba", "CU");
+        this.put("kuvajt", "KW");
+        this.put("kyrgyzstán", "KG");
+        this.put("libanon", "LB");
+        this.put("lichtenštejnsko", "LI");
+        this.put("litva", "LT");
+        this.put("lotyšsko", "LV");
+        this.put("makedonie", "MK");
+        this.put("malajsie", "MY");
+        this.put("mali", "ML");
+        this.put("malta", "MT");
+        this.put("maroko", "MA");
+        this.put("mauretánie", "MR");
+        this.put("maďarsko", "HU");
+        this.put("mexiko", "MX");
+        this.put("moldavsko", "MD");
+        this.put("monako", "MC");
+        this.put("mongolsko", "MN");
+        this.put("mosambik", "MZ");
+        this.put("nigérie", "NE");
+        this.put("nikaragua", "NI");
+        this.put("nizozemsko", "NL");
+        this.put("norsko", "NO");
+        this.put("nový zéland", "NZ");
+        this.put("německo", "DE");
+        this.put("palestina", "PS");
+        this.put("panama", "PA");
+        this.put("paraguay", "PY");
+        this.put("peru", "PE");
+        this.put("pobřeží slonoviny", "CI");
+        this.put("polsko", "PL");
+        this.put("portoriko", "PR");
+        this.put("portugalsko", "PT");
+        this.put("pákistán", "PK");
+        this.put("rakousko", "AT");
+        this.put("rakousko-uhersko", "AT"); // historical
+        this.put("rumunsko", "RO");
+        this.put("rusko", "RU");
+        this.put("rwanda", "RW");
+        this.put("saudská arábie", "SA");
+        this.put("senegal", "SN");
+        this.put("severní korea", "KP");
+        this.put("singapur", "SG");
+        this.put("sk název", "SK");
+        this.put("slovensko", "SK");
+        this.put("slovinsko", "SI");
+        this.put("sovětský svaz", "SU");
+        this.put("spojené arabské emiráty", "AE");
+        this.put("srbsko a černá hora", "ME");
+        this.put("srbsko", "RS");
+        this.put("srí lanka", "LK");
+        this.put("sýrie", "SY");
+        this.put("tanzánie", "TZ");
+        this.put("tchaj-wan", "TW");
+        this.put("thajsko", "TH");
+        this.put("tibet", "TI"); // suggested code); not in ISO
+        this.put("tunisko", "TN");
+        this.put("turecko", "TR");
+        this.put("turkmenistan", "TM");
+        this.put("ukrajina", "UA");
+        this.put("uruguay", "UY");
+        this.put("usa", "USA");
+        this.put("uzbekistán", "UZ");
+        this.put("vatikán", "VA");
+        this.put("velká británie", "GB");
+        this.put("venezuela", "VE");
+        this.put("vietnam", "VN");
+        this.put("východní německo", "DD");
+        this.put("zimbabwe", "ZW");
+        this.put("západní německo", "DE");
+        this.put("ázerbajdžán", "AZ");
+        this.put("írák", "IQ");
+        this.put("írán", "IR");
+        this.put("čad", "TD");
+        this.put("česko", "CZ");
+        this.put("čína", "CN");
+        this.put("řecko", "GR");
+        this.put("španělsko", "ES");
+        this.put("švédsko", "SE");
+        this.put("švýcarsko", "CH");
+    }};
 
-    @Override
-    public boolean scan(Person person) {
-        return super.scan(person);
+    /**
+     * Get country code for country name
+     */
+    public String getCountryCode(String country) {
+        String key = country.toLowerCase();
+
+        if(countryCodes.containsKey(key)) return countryCodes.get(key);
+
+        return country;
     }
+
+
 
 }

@@ -1,11 +1,11 @@
 <component name="libraryTable">
-  <library name="yamj">
+  <library name="yamj-2.10-SNAPSHOT">
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/lib/yamj-2.10-SNAPSHOT.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="jar://$PROJECT_DIR$/lib/yamj.r3763.model-sources.zip!/yamj.r3763.model" />
+      <root url="jar://$PROJECT_DIR$/lib/yamj.r3763-sources.zip!/moviejukebox/yamj/src/main/java" />
     </SOURCES>
   </library>
 </component>
