@@ -20,7 +20,6 @@ public class CSFDpluginTest {
         pulpFiction.setTitle("pulp fiction", "test");
         pulpFiction.setYear("1994", "test");
 
-        PropertiesUtil.setProperty("fanart.movie.download", Boolean.TRUE);
         PropertiesUtil.setProperty("csfd.poster", Boolean.TRUE);
 
         csfd = new CSFDplugin();

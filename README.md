@@ -40,7 +40,10 @@ csfd.directors=True
 csfd.writers=True 
 
 # Stahovat obaly
-csfd.poster=False   
+csfd.poster=False
+  
+# Stahovat fanarty z CSFD
+csfd.fanart=False   
 
 # Země: all = ukládat všechny země / first = jen první zemi 
 csfd.countries=all    

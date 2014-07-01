@@ -17,9 +17,12 @@ import org.apache.log4j.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
+import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 /**
@@ -38,6 +41,7 @@ public class CSFDplugin extends ImdbPlugin {
     private TheTvDBPlugin tvdb;
 
     // Get scraping options
+    private boolean fanart = PropertiesUtil.getBooleanProperty("csfd.fanart", Boolean.FALSE);
     private boolean poster = PropertiesUtil.getBooleanProperty("csfd.poster", Boolean.FALSE);
     private boolean rating = PropertiesUtil.getBooleanProperty("csfd.rating", Boolean.TRUE);
     private boolean actors = PropertiesUtil.getBooleanProperty("csfd.actors", Boolean.TRUE);
@@ -67,32 +71,17 @@ public class CSFDplugin extends ImdbPlugin {
     @Override
     public boolean scan(Movie movie) {
         boolean retval = false;
-        String csfdId = movie.getId(CSFD_PLUGIN_ID);
+        String csfdId = this.getCsfdId(movie);
 
-
-        if(StringTools.isNotValidString(csfdId)) {
-            // store original russian title and year
-            String name = movie.getOriginalTitle();
-            String year = movie.getYear();
-
-            // Get base info from imdb or tvdb
+        // Get base info from imdb or tvdb
+        if(StringTools.isNotValidString(movie.getId(IMDB_PLUGIN_ID))) {
             if(!movie.isTVShow()) {
                 super.scan(movie);
             } else {
                 this.tvdb.scan(movie);
             }
-
-            // search movie ID on csfd with year
-            csfdId = this.getCsfdId(name, year);
-
-            // in case of empty results, try it without the year
-            if(StringTools.isNotValidString(csfdId)) {
-                csfdId = this.getCsfdId(name, Movie.UNKNOWN);
-            }
-
-            // set found ID
-            movie.setId(CSFD_PLUGIN_ID, csfdId);
         }
+
 
         // we have some CSFD ID
         if(StringTools.isValidString(csfdId)) {
@@ -104,11 +93,37 @@ public class CSFDplugin extends ImdbPlugin {
     }
 
 
+    /**
+     * Gets or find CSFD id matching the specified movie name. Tries
+     */
+    public String getCsfdId(Movie movie) {
+        String csfdId = movie.getId(CSFD_PLUGIN_ID);
+
+        if(StringTools.isNotValidString(csfdId)) {
+            // store original russian title and year
+            String name = movie.getOriginalTitle();
+            String year = movie.getYear();
+
+            // search movie ID on csfd with year
+            csfdId = this.searchCsfdId(name, year);
+
+            // in case of empty results, try it without the year
+            if(StringTools.isNotValidString(csfdId)) {
+                csfdId = this.searchCsfdId(name, Movie.UNKNOWN);
+            }
+
+            // set found ID
+            movie.setId(CSFD_PLUGIN_ID, csfdId);
+        }
+
+        return csfdId;
+    }
+
 
     /**
-     * Retrieve CSFD matching the specified movie name and year.
+     * Retrieve CSFD id matching the specified movie name and year.
      */
-    public String getCsfdId(String movieName, String year) {
+    public String searchCsfdId(String movieName, String year) {
         try {
             String url = "http://csfdapi.cz/movie?search=";
             url += URLEncoder.encode(movieName, "UTF-8");
@@ -126,14 +141,14 @@ public class CSFDplugin extends ImdbPlugin {
 
             JSONObject firstMovie = (JSONObject) data.get(0);
 
-
             return firstMovie.get("id").toString(); // return ID of first movie in results
 
         } catch(Exception error) {
             LOG.error(LOG_MESSAGE + "Failed retreiving CSFD Id for movie : " + movieName);
             LOG.error(LOG_MESSAGE + "Error : " + error.getMessage());
-            return Movie.UNKNOWN;
         }
+
+        return null;
     }
 
 
@@ -285,6 +300,7 @@ public class CSFDplugin extends ImdbPlugin {
             // endregion
 
 
+
         } catch(Exception error) {
             LOG.error(LOG_MESSAGE + "Failed retreiving movie data from CSFD : " + csfdId);
             LOG.error(SystemTools.getStackTrace(error));
@@ -295,6 +311,44 @@ public class CSFDplugin extends ImdbPlugin {
     }
 
 
+
+    /**
+     * Get the fanart for the movie from the CSFD
+     */
+    @Override
+    protected String getFanartURL(Movie movie) {
+        String csfdId = this.getCsfdId(movie);
+
+
+        if(!this.fanart || StringTools.isNotValidString(csfdId)) {
+            return super.getFanartURL(movie);
+        }
+
+        try {
+            String page = this.webBrowser.request("http://www.csfd.cz/film/" + csfdId + "/galerie/");
+
+            Pattern pattern = Pattern.compile("<div class=\"photo\"[^']+'([^\\?]+)\\?");
+            Matcher matcher = pattern.matcher(page);
+
+            if(matcher.find()) {
+                return "http:" + matcher.group(1);
+            }
+
+
+        } catch(IOException error) {
+            LOG.error(LOG_MESSAGE + "Failed retreiving CSFD fanart for movie : " + movie.getTitle());
+            LOG.error(LOG_MESSAGE + "Error : " + error.getMessage());
+        }
+
+        return Movie.UNKNOWN;
+    }
+
+
+
+
+    /**
+     * Country codes map
+     */
     public static final Map<String, String> countryCodes = new HashMap<String, String>() {{
         this.put("afgánistán", "AF");
         this.put("albánie", "AL");
@@ -411,13 +465,13 @@ public class CSFDplugin extends ImdbPlugin {
         this.put("tanzánie", "TZ");
         this.put("tchaj-wan", "TW");
         this.put("thajsko", "TH");
-        this.put("tibet", "TI"); // suggested code); not in ISO
+        this.put("tibet", "TI"); // suggested code, not in ISO
         this.put("tunisko", "TN");
         this.put("turecko", "TR");
         this.put("turkmenistan", "TM");
         this.put("ukrajina", "UA");
         this.put("uruguay", "UY");
-        this.put("usa", "USA");
+        this.put("usa", "USA"); // US in ISO
         this.put("uzbekistán", "UZ");
         this.put("vatikán", "VA");
         this.put("velká británie", "GB");
@@ -445,10 +499,8 @@ public class CSFDplugin extends ImdbPlugin {
         String key = country.toLowerCase();
 
         if(countryCodes.containsKey(key)) return countryCodes.get(key);
-
         return country;
     }
-
 
 
 }
