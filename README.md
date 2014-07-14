@@ -24,27 +24,22 @@ Dále je třeba vybrat v nastavení tento plugin pro získávání informací o 
 mjb.internet.plugin=info.thez.csfdplugin.CSFDplugin
 ```
 
-Dále je možno přidat následující možnosti (nejsou povinné). Zde je uvedena jejich výchozí hodnota.
+Dále je možno přidat následující možnosti (nejsou povinné). Zde je uvedena jejich výchozí hodnota. **Pokud chcete toto nastavení zpřístupnit, je nutné celý následující text zkopírovat na konec souboru <code>properties\moviejukebox-default.properties</code>.**
 
 ```
-# Uložit hodnocení z ČSFD
-csfd.rating=True 
-
-# Přepsat herce z IMDb
-csfd.actors=True  
-
-# Přepsat režiséry
-csfd.directors=True 
-
-# Přepsat autory scénáře
-csfd.writers=True 
-
+# Ulozit hodnoceni z CSFD
+csfd.rating=True
+# Prepsat herce z IMDb
+csfd.actors=True
+# Prepsat rezisery
+csfd.directors=True
+# Prepsat autory scenare
+csfd.writers=True
 # Stahovat obaly
 csfd.poster=False
-  
 # Stahovat fanarty z CSFD
-csfd.fanart=False   
-
-# Země: all = ukládat všechny země / first = jen první zemi 
-csfd.countries=all    
+csfd.fanart=False
+# Zeme: all = ukladat vsechny zeme / first = jen prvni zemi
+csfd.countries=all
 ```
+
