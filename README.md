@@ -24,7 +24,10 @@ Dále je třeba vybrat v nastavení tento plugin pro získávání informací o 
 mjb.internet.plugin=info.thez.csfdplugin.CSFDplugin
 ```
 
-Dále je možno přidat následující možnosti (nejsou povinné). Zde je uvedena jejich výchozí hodnota. **Pokud chcete toto nastavení zpřístupnit, je nutné celý následující text zkopírovat na konec souboru <code>properties\moviejukebox-default.properties</code>.**
+
+Konfigurace pluginu
+-------------------
+Plugin umožňuje změnu některých parametrů funkčnosti. V tomto seznamu je uvedena výchozí hodnota. **Pokud chcete toto nastavení zpřístupnit, je nutné celý následující text zkopírovat na konec souboru <code>properties\moviejukebox-default.properties</code>.** 
 
 ```
 # Ulozit hodnoceni z CSFD
