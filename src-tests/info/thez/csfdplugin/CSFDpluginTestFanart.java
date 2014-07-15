@@ -14,8 +14,8 @@ public class CSFDpluginTestFanart {
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
         pulpFiction = new Movie();
-        pulpFiction.setTitle("22 Jump Street", "test");
-        pulpFiction.setYear("2014", "test");
+        pulpFiction.setTitle("Forrest Gump", "test");
+        pulpFiction.setYear("1994", "test");
 
         PropertiesUtil.setProperty("fanart.movie.download", Boolean.TRUE);
         PropertiesUtil.setProperty("csfd.fanart", Boolean.TRUE);
@@ -25,6 +25,6 @@ public class CSFDpluginTestFanart {
 
     @Test
     public void testGetFanartURL() throws Exception {
-        Assert.assertEquals("http://img.csfd.cz/files/images/film/photos/158/427/158427929_7923e5.jpg", csfd.getFanartURL(pulpFiction));
+        Assert.assertEquals("http://img.csfd.cz/files/images/film/photos/000/146/146448_08a693.jpg", csfd.getFanartURL(pulpFiction));
     }
 }
