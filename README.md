@@ -43,7 +43,9 @@ csfd.writers=True
 csfd.poster=False
 # Stahovat fanarty z CSFD
 csfd.fanart=False
-# Zeme: all = ukladat vsechny zeme / first = jen prvni zemi
-csfd.countries=all
+# Ukladat vsechny zeme nebo jen prvni zemi
+csfd.countries.getAll=True
+# Prepisovat nazvy zemi na zkratky
+csfd.countries.useShortcuts=True
 ```
 

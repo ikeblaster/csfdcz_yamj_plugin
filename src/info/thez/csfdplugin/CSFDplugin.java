@@ -47,7 +47,8 @@ public class CSFDplugin extends ImdbPlugin {
     private boolean actors = PropertiesUtil.getBooleanProperty("csfd.actors", Boolean.TRUE);
     private boolean directors = PropertiesUtil.getBooleanProperty("csfd.directors", Boolean.TRUE);
     private boolean writers = PropertiesUtil.getBooleanProperty("csfd.writers", Boolean.TRUE);
-    private boolean countryAll = PropertiesUtil.getProperty("csfd.countries", "all").equalsIgnoreCase("all");
+    private boolean countriesGetAll = PropertiesUtil.getBooleanProperty("csfd.countries.getAll", Boolean.TRUE);
+    private boolean countriesUseShortcuts = PropertiesUtil.getBooleanProperty("csfd.countries.useShortcuts", Boolean.TRUE);
 
     public CSFDplugin() {
         super();
@@ -197,11 +198,14 @@ public class CSFDplugin extends ImdbPlugin {
 
                 for(int i = 0; i < countries.size(); i++) {
                     if(i > 0) {
-                        if(!this.countryAll) break;
+                        if(!this.countriesGetAll) break;
                         sbCountry.append(Movie.SPACE_SLASH_SPACE);
                     }
 
-                    sbCountry.append(this.getCountryCode(countries.get(i).toString()));
+                    String cntr = countries.get(i).toString();
+                    if(this.countriesUseShortcuts) cntr = this.getCountryCode(cntr);
+
+                    sbCountry.append(cntr);
                 }
 
 
@@ -348,148 +352,229 @@ public class CSFDplugin extends ImdbPlugin {
 
     /**
      * Country codes map
+	 * @see <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements">link</a>
      */
     public static final Map<String, String> countryCodes = new HashMap<String, String>() {{
-        this.put("afgánistán", "AF");
-        this.put("albánie", "AL");
+        this.put("ázerbájdžán", "AZ");
+        this.put("ázerbajdžán", "AZ");
+        this.put("írán", "IR");
+        this.put("čína", "CN");
+        this.put("čad", "TD");
+        this.put("černá hora", "ME");
+        this.put("česko", "CZ");
+        this.put("československo", "CS"); // historical
+        this.put("řecko", "GR");
+        this.put("šalamounovy ostrovy", "SB");
+        this.put("španělsko", "ES");
+        this.put("šrí lanka", "LK");
+        this.put("švédsko", "SE");
+        this.put("švýcarsko", "CH");
+        this.put("afghánistán", "AF");
         this.put("alžírsko", "DZ");
+        this.put("albánie", "AL");
+        this.put("andorra", "AD");
+        this.put("angola", "AO");
+        this.put("antigua a barbuda", "AG");
         this.put("argentina", "AR");
         this.put("arménie", "AM");
+        this.put("aruba", "AW");
         this.put("austrálie", "AU");
+        this.put("bělorusko", "BY");
         this.put("bahamy", "BS");
+        this.put("bahrajn", "BH");
         this.put("bangladéš", "BD");
+        this.put("barbados", "BB");
         this.put("barma", "MM");
         this.put("belgie", "BE");
-        this.put("bhután", "BT");
+        this.put("belize", "BZ");
+        this.put("benin", "BJ");
+        this.put("bhútán", "BT");
         this.put("bolívie", "BO");
         this.put("bosna a hercegovina", "BA");
+        this.put("botswana", "BW");
         this.put("brazílie", "BR");
+        this.put("brunej", "BN");
         this.put("bulharsko", "BG");
         this.put("burkina faso", "BF");
-        this.put("bělorusko", "BY");
+        this.put("burundi", "BI");
         this.put("chile", "CL");
         this.put("chorvatsko", "HR");
         this.put("cz název", "CZ");
-        this.put("dominik. republika", "DO");
         this.put("dánsko", "DK");
+        this.put("džibutsko", "DJ");
+        this.put("demokratická republika kongo", "CD");
+        this.put("dominikánská republika", "DO");
+        this.put("dominik. republika", "DO");
+        this.put("dominika", "DM");
         this.put("egypt", "EG");
         this.put("ekvádor", "EC");
         this.put("en název", "US");
+        this.put("eritrea", "ER");
         this.put("estonsko", "EE");
         this.put("etiopie", "ET");
-        this.put("fed. rep. jugoslávie", "HR"); // historical
+        this.put("faerské ostrovy", "FO");
+        this.put("fed. rep. jugoslávie", "YU"); // transitional
+        this.put("federativní státy mikronésie", "FM");
+        this.put("fidži", "FJ");
         this.put("filipíny", "PH");
         this.put("finsko", "FI");
         this.put("francie", "FR");
+        this.put("gabon", "GA");
+        this.put("gambie", "GM");
+        this.put("ghana", "GH");
+        this.put("grónsko", "GL");
+        this.put("grenada", "GD");
         this.put("gruzie", "GE");
         this.put("guatemala", "GT");
+        this.put("guinea", "GN");
+        this.put("guinea-bissau", "GW");
+        this.put("guyana", "GY");
+        this.put("haiti", "HT");
         this.put("honduras", "HN");
         this.put("hong kong", "HK");
         this.put("indie", "IN");
         this.put("indonésie", "ID");
-        this.put("irsko", "IE");
         this.put("irák", "IQ");
-        this.put("irán", "IR");
+        this.put("irsko", "IE");
         this.put("island", "IS");
         this.put("itálie", "IT");
         this.put("izrael", "IL");
         this.put("jamajka", "JM");
         this.put("japonsko", "JP");
+        this.put("jemen", "YE");
         this.put("jižní afrika", "ZA");
         this.put("jižní korea", "KR");
+        this.put("jihoafrická republika", "ZA");
         this.put("jordánsko", "JO");
-        this.put("jugoslávie", "HR"); // historical
+        this.put("jugoslávie", "YU"); // historical + ambiguous
         this.put("kambodža", "KH");
         this.put("kamerun", "CM");
         this.put("kanada", "CA");
+        this.put("kapverdy", "CV");
         this.put("katar", "QA");
         this.put("kazachstán", "KZ");
         this.put("keňa", "KE");
+        this.put("kiribati", "KI");
         this.put("kolumbie", "CO");
+        this.put("komory", "KM");
         this.put("kongo", "CG");
         this.put("korea", "KR"); // ambiguous
         this.put("kosovo", "XK"); // temporary
         this.put("kostarika", "CR");
+        this.put("kréta", "GR-M");
         this.put("kuba", "CU");
         this.put("kuvajt", "KW");
+        this.put("kypr", "CY");
         this.put("kyrgyzstán", "KG");
+        this.put("laos", "LA");
+        this.put("lesotho", "LS");
+        this.put("libérie", "LR");
         this.put("libanon", "LB");
+        this.put("libye", "LY");
         this.put("lichtenštejnsko", "LI");
         this.put("litva", "LT");
         this.put("lotyšsko", "LV");
+        this.put("lucembursko", "LU");
+        this.put("maďarsko", "HU");
+        this.put("madagaskar", "MG");
         this.put("makedonie", "MK");
         this.put("malajsie", "MY");
+        this.put("malawi", "MW");
+        this.put("maledivy", "MV");
         this.put("mali", "ML");
         this.put("malta", "MT");
         this.put("maroko", "MA");
-        this.put("mauretánie", "MR");
-        this.put("maďarsko", "HU");
+        this.put("marshallovy ostrovy", "MH");
+        this.put("mauricius", "MU");
+        this.put("mauritánie", "MR");
         this.put("mexiko", "MX");
         this.put("moldavsko", "MD");
         this.put("monako", "MC");
         this.put("mongolsko", "MN");
         this.put("mosambik", "MZ");
+        this.put("myanmar", "MM");
+        this.put("německo", "DE");
+        this.put("namibie", "NA");
+        this.put("nauru", "NR");
+        this.put("nepál", "NP");
         this.put("nigérie", "NE");
+        this.put("niger", "NG");
         this.put("nikaragua", "NI");
         this.put("nizozemsko", "NL");
         this.put("norsko", "NO");
         this.put("nový zéland", "NZ");
-        this.put("německo", "DE");
+        this.put("omán", "OM");
+        this.put("pákistán", "PK");
+        this.put("palau", "PW");
         this.put("palestina", "PS");
         this.put("panama", "PA");
+        this.put("papua-nová guinea", "PG");
         this.put("paraguay", "PY");
         this.put("peru", "PE");
         this.put("pobřeží slonoviny", "CI");
         this.put("polsko", "PL");
         this.put("portoriko", "PR");
         this.put("portugalsko", "PT");
-        this.put("pákistán", "PK");
         this.put("rakousko", "AT");
-        this.put("rakousko-uhersko", "AT"); // historical
+        this.put("rakousko-uhersko", "ATH"); // historical
+        this.put("rovníková guinea", "GQ");
         this.put("rumunsko", "RO");
         this.put("rusko", "RU");
         this.put("rwanda", "RW");
+        this.put("súdán", "SD");
+        this.put("sýrie", "SY");
+        this.put("saúdská arábie", "SA");
+        this.put("salvador", "SV");
+        this.put("samoa", "WS");
+        this.put("san marino", "SM");
         this.put("saudská arábie", "SA");
         this.put("senegal", "SN");
         this.put("severní korea", "KP");
+        this.put("seychely", "SC");
+        this.put("sierra leone", "SL");
         this.put("singapur", "SG");
         this.put("sk název", "SK");
         this.put("slovensko", "SK");
         this.put("slovinsko", "SI");
+        this.put("somálsko", "SO");
         this.put("sovětský svaz", "SU");
         this.put("spojené arabské emiráty", "AE");
-        this.put("srbsko a černá hora", "ME");
+        this.put("srbsko a černá hora", "YU"); // transitional, same as Fed. Rep. of Yugoslavia
         this.put("srbsko", "RS");
-        this.put("srí lanka", "LK");
-        this.put("sýrie", "SY");
-        this.put("tanzánie", "TZ");
+        this.put("středoafrická republika", "CF");
+        this.put("surinam", "SR");
+        this.put("svatá lucie", "LC");
+        this.put("svatý kryštof a nevis", "KN");
+        this.put("svatý tomáš a princův ostrov", "ST");
+        this.put("svatý vincenc a grenadiny", "VC");
+        this.put("svazijsko", "SZ");
+        this.put("tádžikistán", "TJ");
+        this.put("tanzanie", "TZ");
         this.put("tchaj-wan", "TW");
         this.put("thajsko", "TH");
         this.put("tibet", "TI"); // suggested code, not in ISO
+        this.put("togo", "TG");
+        this.put("tonga", "TO");
+        this.put("trinidad a tobago", "TT");
         this.put("tunisko", "TN");
         this.put("turecko", "TR");
-        this.put("turkmenistan", "TM");
+        this.put("turkmenistán", "TM");
+        this.put("tuvalu", "TV");
+        this.put("uganda", "UG");
         this.put("ukrajina", "UA");
         this.put("uruguay", "UY");
         this.put("usa", "USA"); // US in ISO
         this.put("uzbekistán", "UZ");
+        this.put("východní německo", "DDR"); // not in ISO
+        this.put("východní timor", "TP");
+        this.put("vanuatu", "VU");
         this.put("vatikán", "VA");
         this.put("velká británie", "GB");
         this.put("venezuela", "VE");
         this.put("vietnam", "VN");
-        this.put("východní německo", "DD");
+        this.put("západní německo", "DE"); // ambiguous
+        this.put("zambie", "ZM");
         this.put("zimbabwe", "ZW");
-        this.put("západní německo", "DE");
-        this.put("ázerbajdžán", "AZ");
-        this.put("írák", "IQ");
-        this.put("írán", "IR");
-        this.put("čad", "TD");
-        this.put("česko", "CZ");
-        this.put("čína", "CN");
-        this.put("řecko", "GR");
-        this.put("španělsko", "ES");
-        this.put("švédsko", "SE");
-        this.put("švýcarsko", "CH");
     }};
 
     /**
