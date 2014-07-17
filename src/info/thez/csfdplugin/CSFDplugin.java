@@ -362,7 +362,7 @@ public class CSFDplugin extends ImdbPlugin {
         this.put("čad", "TD");
         this.put("černá hora", "ME");
         this.put("česko", "CZ");
-        this.put("československo", "CS"); // historical
+        this.put("československo", "ČSSR"); // historical
         this.put("řecko", "GR");
         this.put("šalamounovy ostrovy", "SB");
         this.put("španělsko", "ES");
